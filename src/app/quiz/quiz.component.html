@@ -1,0 +1,59 @@
+<div class="quiz-cont">
+  <div class="card-cont">
+    <mat-card class="flex flex-col sm:flex sm:flex-row">
+      <div class="card-content flex flex-col sm:flex sm:flex-row gap-2">
+        <div class="img-cont w-full sm:w-1/2">
+          <img src="/assets/eMailPhone.jpg" />
+        </div>
+        <div class="question-cont w-full sm:w-1/2">
+          <div class="content p-5">
+            <h1 class="p-2 text-center">{{ getData.qsQuestion.en }}</h1>
+            <hr />
+            <p class="p-2"></p>
+            <div>
+              <mat-radio-group
+                aria-label="Select an option"
+                class="flex flex-col gap-2 sm:flex sm:flex-row sm:gap-1"
+              >
+                <mat-card class="sm:w-1/2"
+                  ><mat-radio-button
+                    value="1"
+                    class="p-5"
+                    (change)="yesRadioChange($event)"
+                    >{{ getData.qsOption1.en }}</mat-radio-button
+                  ></mat-card
+                >
+                <mat-card class="sm:w-1/2"
+                  ><mat-radio-button
+                    value="2"
+                    class="p-5"
+                    (change)="noRadioChange($event)"
+                    >{{ getData.qsOption2.en }}</mat-radio-button
+                  ></mat-card
+                >
+              </mat-radio-group>
+            </div>
+            <div class="uplod-img p-5" *ngIf="showUplod">
+              <input type="file" (change)="uplodFile($event)" />
+              <div
+                class="flex justify-center border-2 border-black border-dashed p-5"
+                *ngIf="showImage"
+              >
+                <img [src]="imageUrl" class="w-48 h-44 sm:w-48 sm:h-48 p-5" />
+              </div>
+            </div>
+            <div class="button float-right p-5 mt-10">
+              <button
+                mat-raised-button
+                color="primary"
+                (click)="nextQuestion()"
+              >
+                Proceed
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>
