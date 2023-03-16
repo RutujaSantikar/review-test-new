@@ -18,8 +18,11 @@ export class QuizComponent implements OnInit {
   nquestion: any;
   nquestion1: any;
   correctOption: any;
-  selectedValue: any;
+  selectedValue: any='';
   selectedValueImage: any;
+  valueImage: any='';
+  isLoaded= false;
+  lang=true
 
 
 
@@ -27,11 +30,15 @@ export class QuizComponent implements OnInit {
 
   ngOnInit() {
 
+    // console.log(this.selectedValue) :any gives undefined
+        // console.log(this.selectedValue) :'' gives empty string
     this.qzService.getQuestions().subscribe((response: any) => {
-      this.getData1 = response;
-      console.log(this.getData1);
+
       this.getData = response[0];
       console.log(this.getData);
+      this.getData1 = response;
+      console.log(this.getData1);
+      this.isLoaded = true;
     });
   }
 
@@ -66,6 +73,7 @@ export class QuizComponent implements OnInit {
         console.log(this.nquestion);
         this.getData = this.getData1[this.nquestion];
         console.log(this.getData);
+        this.selectedValue = '';
       }
     }
   }
@@ -80,11 +88,16 @@ export class QuizComponent implements OnInit {
       reader.onload = this.handleFile.bind(this);
       reader.readAsBinaryString(file);
     }
+    this.valueImage = event.target.files[0].name;
   }
 
   handleFile(event: any) {
     const binaryString = event.target.result;
     this.base64code = btoa(binaryString);
     this.imageUrl = 'data:image/jpeg;base64,' + this.base64code;
-  }
+   }
+
+   changeLanguage(){
+       this.lang = !this.lang
+   }
 }
