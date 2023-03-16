@@ -2,8 +2,8 @@
   <div class="card-cont">
     <mat-card class="flex flex-col sm:flex sm:flex-row">
       <div class="card-content flex flex-col sm:flex sm:flex-row gap-2">
-        <div class="img-cont w-full sm:w-1/2">
-          <img src="/assets/eMailPhone.jpg" />
+        <div class="img-cont w-full sm:w-1/2 sm:h-full">
+          <img src="/assets/eMailPhone.jpg" class="h-fit" />
         </div>
         <div class="question-cont w-full sm:w-1/2">
           <div class="content p-5">
@@ -12,29 +12,30 @@
             <p class="p-2"></p>
             <div>
               <mat-radio-group
+                [(ngModel)]="selectedValue"
                 aria-label="Select an option"
                 class="flex flex-col gap-2 sm:flex sm:flex-row sm:gap-1"
               >
-                <mat-card class="sm:w-1/2"
-                  ><mat-radio-button
-                    value="1"
+                <mat-card class="sm:w-1/2">
+                  <mat-radio-button
+                    value="Yes"
                     class="p-5"
                     (change)="yesRadioChange($event)"
                     >{{ getData.qsOption1.en }}</mat-radio-button
-                  ></mat-card
-                >
-                <mat-card class="sm:w-1/2"
-                  ><mat-radio-button
-                    value="2"
+                  >
+                </mat-card>
+                <mat-card class="sm:w-1/2">
+                  <mat-radio-button
+                    value="No"
                     class="p-5"
                     (change)="noRadioChange($event)"
                     >{{ getData.qsOption2.en }}</mat-radio-button
-                  ></mat-card
-                >
+                  >
+                </mat-card>
               </mat-radio-group>
             </div>
             <div class="uplod-img p-5" *ngIf="showUplod">
-              <input type="file" (change)="uplodFile($event)" />
+              <input type="file" (change)="uplodFile($event)"  />
               <div
                 class="flex justify-center border-2 border-black border-dashed p-5"
                 *ngIf="showImage"
@@ -47,6 +48,7 @@
                 mat-raised-button
                 color="primary"
                 (click)="nextQuestion()"
+                [disabled]="!selectedValue"
               >
                 Proceed
               </button>
