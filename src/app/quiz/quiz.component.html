@@ -6,11 +6,32 @@
           <img src="/assets/eMailPhone.jpg" class="h-fit" />
         </div>
         <div class="question-cont w-full sm:w-1/2">
-          <button mat-raised-button color="accent" class="p-5 mt-2" (click)="changeLanguage()">{{ !lang ? 'English' : "मराठी" }}</button>
+          <button
+            mat-raised-button
+            color="accent"
+            class="p-5 mt-2"
+            (click)="changeLanguage()"
+          >
+            {{ !lang ? "English" : "मराठी" }}
+          </button>
           <div class="content p-5" *ngIf="isLoaded">
             <div class="flex justify-between">
-              <h1 class="p-2 text-center">{{ lang ? getData.qsQuestion.en : getData.qsQuestion.mr }}</h1>
-              <a href={{getData.qsDescription}}><img src="/assets/youtube.png" class="w-24"></a>
+              <h1 class="p-2 text-center">
+                <!-- {{ lang ? getData.qsQuestion.en : getData.qsQuestion.mr }} -->
+                <!-- {{
+                  lang
+                    ? getData.qsQuestion.language
+                    : getData.qsQuestion.language
+                }} -->
+
+                <!-- {{ getData.qsQuestion.language }}
+                 -->
+
+                {{ getData.qsQuestion[language] }}
+              </h1>
+              <a href="{{ getData.qsDescription }}" target="_blank"
+                ><img src="/assets/youtube.png" class="w-24"
+              /></a>
               <hr />
             </div>
 
@@ -27,26 +48,41 @@
                     value="Yes"
                     class="p-5"
                     (change)="yesRadioChange($event)"
-                    >{{ lang ? getData.qsOption1.en : getData.qsOption1.mr  }}</mat-radio-button
                   >
+                    <!-- {{
+                      lang ? getData.qsOption1.en : getData.qsOption1.mr
+                    }} -->
+
+                    {{ getData.qsOption1[language] }}
+                  </mat-radio-button>
                 </mat-card>
                 <mat-card class="sm:w-1/2">
                   <mat-radio-button
                     value="No"
                     class="p-5"
                     (change)="noRadioChange($event)"
-                    >{{ lang ? getData.qsOption2.en : getData.qsOption2.mr }}</mat-radio-button
                   >
+                    <!-- {{
+                      lang ? getData.qsOption2.en : getData.qsOption2.mr
+                    }}
+                     -->
+                    {{ getData.qsOption2[language] }}
+                  </mat-radio-button>
                 </mat-card>
               </mat-radio-group>
             </div>
             <div class="uplod-img p-5" *ngIf="showUplod">
-              <input type="file" (change)="uplodFile($event)"  />
+              <input type="file" (change)="uplodFile($event)" />
               <div
                 class="flex justify-center border-2 border-black border-dashed p-5"
                 *ngIf="showImage"
               >
-                <img [src]="imageUrl" class="w-48 h-44 sm:w-48 sm:h-48 p-5"  [(ngModel)]="valueImage" ngDefaultControl/>
+                <img
+                  [src]="imageUrl"
+                  class="w-48 h-44 sm:w-48 sm:h-48 p-5"
+                  [(ngModel)]="valueImage"
+                  ngDefaultControl
+                />
               </div>
             </div>
             <div class="button float-right p-5 mt-10">
@@ -54,10 +90,12 @@
                 mat-raised-button
                 color="primary"
                 (click)="nextQuestion()"
-
-                [disabled]=" selectedValue == '' || ((selectedValue == 'Yes')&&(valueImage == ''))"
-                >
-                  {{ lang ? "Proceed" : "पुढे" }}
+                [disabled]="
+                  selectedValue == '' ||
+                  (selectedValue == 'Yes' && valueImage == '')
+                "
+              >
+                {{ lang ? "Proceed" : "पुढे" }}
               </button>
             </div>
           </div>
@@ -66,15 +104,6 @@
     </mat-card>
   </div>
 </div>
-
-
-
-
-
-
-
-
-
 
 <!-- [disabled]="(!selectedValue && !showUplod) || !valueImage" -->
 <!-- [disabled]="(!selectedValue== true && !valueImage==true) || !selectedValue==true" -->

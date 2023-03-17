@@ -18,27 +18,26 @@ export class QuizComponent implements OnInit {
   nquestion: any;
   nquestion1: any;
   correctOption: any;
-  selectedValue: any='';
+  selectedValue: any = '';
   selectedValueImage: any;
-  valueImage: any='';
-  isLoaded= false;
-  lang=true
-
-
+  valueImage: any = '';
+  isLoaded = false;
+  lang = true;
+  language: any = 'mr';
+  mr = 'mr';
+  en = 'en';
 
   constructor(private qzService: QzService) {}
 
   ngOnInit() {
-
-    // console.log(this.selectedValue) :any gives undefined
-        // console.log(this.selectedValue) :'' gives empty string
     this.qzService.getQuestions().subscribe((response: any) => {
-
       this.getData = response[0];
       console.log(this.getData);
+      console.log(this.getData.qsQuestion[this.language]);
       this.getData1 = response;
       console.log(this.getData1);
       this.isLoaded = true;
+      this.changeLanguage();
     });
   }
 
@@ -48,17 +47,15 @@ export class QuizComponent implements OnInit {
     console.log(event);
     this.selectedValue = event;
     console.log(this.selectedValue);
-
   }
   noRadioChange(event: any) {
     this.correctOption = 'No';
     console.log(event);
     this.selectedValue = event;
-    console.log(this.selectedValue)
+    console.log(this.selectedValue);
   }
 
   nextQuestion() {
-
     for (let i = 0; i < this.getData1.length; i++) {
       if (this.getData.qsOption1.en == this.correctOption && this.imageUrl) {
         this.imageUrl = '';
@@ -79,7 +76,6 @@ export class QuizComponent implements OnInit {
   }
 
   uplodFile(event: any) {
-
     this.showImage = true;
     const files = event.target.files;
     const file = files[0];
@@ -95,9 +91,11 @@ export class QuizComponent implements OnInit {
     const binaryString = event.target.result;
     this.base64code = btoa(binaryString);
     this.imageUrl = 'data:image/jpeg;base64,' + this.base64code;
-   }
+  }
 
-   changeLanguage(){
-       this.lang = !this.lang
-   }
+  changeLanguage() {
+    this.lang = !this.lang;
+    this.language = this.lang ? this.en : this.mr;
+    console.log(this.language);
+  }
 }
